@@ -146,6 +146,13 @@ const upgradeBanner = computed(() => {
           to: '/data-dashboard',
         }"
       />
+      <VerticalNavLink
+        :item="{
+          title: 'Message Center',
+          icon: 'mdi-form-select',
+          to: '/message-center',
+        }"
+      />
     </template>
 
     <!-- 👉 Pages -->

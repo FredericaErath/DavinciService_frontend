@@ -24,6 +24,7 @@
     "echarts": "^5.4.3",
     "element-plus": "^2.3.7",
     "eslint-import-resolver-alias": "^1.1.2",
+    "gogocode": "^1.0.55",
     "jwt-decode": "^3.1.2",
     "pinia": "^2.0.36",
     "prismjs": "^1.29.0",

@@ -1,6 +1,6 @@
 import requests from './request'
 import requests_form from './request_form'
-const api = '192.168.1.43:9001'
+const api = '192.168.1.226:9001'
 
 //user
 export const login_api = (data) =>

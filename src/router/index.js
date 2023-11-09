@@ -36,6 +36,10 @@ const router = createRouter({
           path: 'data-dashboard',
           component: () => import('../pages/data-dashboard.vue'),
         },
+        {
+          path: 'message-center',
+          component: () => import('../pages/message-center.vue'),
+        },
       ],
     },
     {
