@@ -1,6 +1,6 @@
 import requests from './request'
 import requests_form from './request_form'
-const api = '192.168.1.226:9001'
+const api = '192.168.1.179:9001'
 
 //user
 export const login_api = (data) =>
@@ -53,3 +53,10 @@ export const get_surgery_dashobard = (data) =>
   requests({ url: 'http://' + api + '/admin/get_surgery_dashboard', method: 'post', data})
 export const get_doctor_contribution = (data) =>
   requests({ url: 'http://' + api + '/admin/get_doctor_contribution', method: 'post', data})
+//message
+export const get_message = (data) =>
+  requests({ url: 'http://' + api + '/admin/get_message', method: 'post', data})
+export const delete_message = (data) =>
+  requests({ url: 'http://' + api + '/admin/delete_message', method: 'post', data})
+export const update_message = (data) =>
+  requests({ url: 'http://' + api + '/admin/update_message', method: 'post', data})
