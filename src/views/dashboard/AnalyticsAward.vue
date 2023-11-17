@@ -11,13 +11,13 @@ const triangleBg = computed(() => (global.name.value === 'light' ? triangleLight
 <template>
   <VCard
     title="管理员， 欢迎! 🎉"
-    subtitle="Best seller of the month"
+    subtitle="达芬奇手术器械管理系统"
     class="position-relative"
   >
     <VCardText>
-      <h5 class="text-2xl font-weight-medium text-primary">$42.8k</h5>
-      <p>78% of target 🚀</p>
-      <VBtn size="small"> View Sales </VBtn>
+      <h5 class="text-2xl font-weight-medium text-primary">系统文档已更新</h5>
+      <p>覆盖100%功能 🚀</p>
+      <VBtn size="small"> 查看文档 </VBtn>
     </VCardText>
 
     <!-- Triangle Background -->

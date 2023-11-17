@@ -1,48 +1,12 @@
-<script setup>
-const statistics = [
-  {
-    title: 'Sales',
-    stats: '245k',
-    icon: 'mdi-trending-up',
-    color: 'primary',
-  },
-  {
-    title: 'Customers',
-    stats: '12.5k',
-    icon: 'mdi-account-outline',
-    color: 'success',
-  },
-  {
-    title: 'Product',
-    stats: '1.54k',
-    icon: 'mdi-cellphone-link',
-    color: 'warning',
-  },
-  {
-    title: 'Revenue',
-    stats: '$88k',
-    icon: 'mdi-currency-usd',
-    color: 'info',
-  },
-]
-</script>
-
 <template>
   <VCard>
     <VCardItem>
-      <VCardTitle>Transactions</VCardTitle>
-
-      <template #append>
-        <div class="me-n3">
-          <MoreBtn />
-        </div>
-      </template>
+      <VCardTitle>数据概览</VCardTitle>
     </VCardItem>
 
     <VCardText>
       <h6 class="text-sm font-weight-medium mb-12">
-        <span>Total 48.5% Growth 😎</span>
-        <span class="font-weight-regular"> this month</span>
+        <span>从这里了解系统总体数据 😎</span>
       </h6>
 
       <VRow>
@@ -79,3 +43,56 @@ const statistics = [
     </VCardText>
   </VCard>
 </template>
+<script>
+export default {
+  props: {
+    general_data: Object,
+    required: true,
+  },
+  watch: {
+    general_data: {
+      handler(newValue, oldValue) {
+        this.initialize()
+      },
+      deep: true,
+      immediate: true,
+    },
+  },
+  created() {
+    this.initialize()
+  },
+  data: () => ({
+    statistics: [],
+  }),
+  methods: {
+    initialize() {
+      this.statistics = [
+        {
+          title: '手术',
+          stats: this.general_data.surgery,
+          icon: 'mdi-trending-up',
+          color: 'primary',
+        },
+        {
+          title: '用户',
+          stats: this.general_data.users,
+          icon: 'mdi-account-outline',
+          color: 'success',
+        },
+        {
+          title: '器械',
+          stats: this.general_data.instrument,
+          icon: 'mdi-cellphone-link',
+          color: 'warning',
+        },
+        {
+          title: '耗材',
+          stats: this.general_data.consumable,
+          icon: 'mdi-currency-usd',
+          color: 'info',
+        },
+      ]
+    },
+  },
+}
+</script>

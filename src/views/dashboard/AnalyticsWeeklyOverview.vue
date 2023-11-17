@@ -1,105 +1,7 @@
-<script setup>
-import { hexToRgb } from '@layouts/utils'
-import VueApexCharts from 'vue3-apexcharts'
-import { useTheme } from 'vuetify'
-
-const vuetifyTheme = useTheme()
-
-const options = controlledComputed(
-  () => vuetifyTheme.name.value,
-  () => {
-    const currentTheme = ref(vuetifyTheme.current.value.colors)
-    const variableTheme = ref(vuetifyTheme.current.value.variables)
-    const disabledColor = `rgba(${hexToRgb(currentTheme.value['on-surface'])},${
-      variableTheme.value['disabled-opacity']
-    })`
-    const borderColor = `rgba(${hexToRgb(String(variableTheme.value['border-color']))},${
-      variableTheme.value['border-opacity']
-    })`
-
-    return {
-      chart: {
-        parentHeightOffset: 0,
-        toolbar: { show: false },
-      },
-      plotOptions: {
-        bar: {
-          borderRadius: 9,
-          distributed: true,
-          columnWidth: '40%',
-          endingShape: 'rounded',
-          startingShape: 'rounded',
-        },
-      },
-      stroke: {
-        width: 2,
-        colors: [currentTheme.value.surface],
-      },
-      legend: { show: false },
-      grid: {
-        borderColor,
-        strokeDashArray: 7,
-        padding: {
-          top: -1,
-          right: 0,
-          left: -12,
-          bottom: 5,
-        },
-      },
-      dataLabels: { enabled: false },
-      colors: [
-        currentTheme.value['grey-100'],
-        currentTheme.value['grey-100'],
-        currentTheme.value['grey-100'],
-        currentTheme.value.primary,
-        currentTheme.value['grey-100'],
-        currentTheme.value['grey-100'],
-      ],
-      states: {
-        hover: { filter: { type: 'none' } },
-        active: { filter: { type: 'none' } },
-      },
-      xaxis: {
-        categories: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
-        tickPlacement: 'on',
-        labels: { show: false },
-        crosshairs: { opacity: 0 },
-        axisTicks: { show: false },
-        axisBorder: { show: false },
-      },
-      yaxis: {
-        show: true,
-        tickAmount: 4,
-        labels: {
-          offsetX: -17,
-          style: {
-            colors: disabledColor,
-            fontSize: '12px',
-          },
-          formatter: value => `${value > 999 ? `${(value / 1000).toFixed(0)}` : value}k`,
-        },
-      },
-    }
-  },
-)
-
-const series = [
-  {
-    data: [37, 57, 45, 75, 57, 40, 65],
-  },
-]
-</script>
-
 <template>
   <VCard>
     <VCardItem>
-      <VCardTitle>每周概览</VCardTitle>
-
-      <template #append>
-        <div class="me-n3">
-          <MoreBtn />
-        </div>
-      </template>
+      <VCardTitle>详细数据</VCardTitle>
     </VCardItem>
 
     <VCardText>
@@ -111,11 +13,102 @@ const series = [
       />
 
       <div class="d-flex align-center mb-3">
-        <h5 class="text-h5 me-4">45%</h5>
-        <p>Your sales performance is 45% 😎 better compared to last month</p>
+        <p>从数据看板中能够了解详细数据 😎</p>
       </div>
 
-      <VBtn block> Details </VBtn>
+      <VBtn
+        block
+        @click="addRoutes"
+      >
+        查看
+      </VBtn>
     </VCardText>
   </VCard>
 </template>
+
+<script>
+import VueApexCharts from 'vue3-apexcharts'
+import { useTheme } from 'vuetify'
+
+export default {
+  components: {
+    VueApexCharts,
+  },
+  data: () => ({
+    options: {},
+    series: [
+      {
+        data: [207, 101, 145, 175, 187, 140, 165],
+      },
+    ],
+  }),
+  created() {
+    this.getOptions()
+  },
+  methods: {
+    addRoutes() {
+      this.$router.push('/data-dashboard')
+    },
+    getOptions() {
+      const vuetifyTheme = useTheme()
+      this.options = controlledComputed(
+        () => vuetifyTheme.name.value,
+        () => {
+          const currentTheme = ref(vuetifyTheme.current.value.colors)
+
+          return {
+            chart: {
+              parentHeightOffset: 0,
+              toolbar: { show: false },
+            },
+            plotOptions: {
+              bar: {
+                borderRadius: 9,
+                distributed: true,
+                columnWidth: '40%',
+                endingShape: 'rounded',
+                startingShape: 'rounded',
+              },
+            },
+            stroke: {
+              width: 2,
+              colors: [currentTheme.value.surface],
+            },
+            legend: { show: false },
+            grid: {
+              show: false,
+            },
+            dataLabels: { enabled: false },
+            colors: [
+              currentTheme.value['grey-100'],
+              currentTheme.value['grey-100'],
+              currentTheme.value['grey-100'],
+              currentTheme.value.primary,
+              currentTheme.value['grey-100'],
+              currentTheme.value['grey-100'],
+            ],
+            states: {
+              show: false,
+            },
+            xaxis: {
+              categories: ['1', '2', '3', '4', '5', '6', '7'],
+              tickPlacement: 'off',
+              labels: { show: false },
+              crosshairs: { opacity: 0 },
+              axisTicks: { show: false },
+              axisBorder: { show: false },
+            },
+            yaxis: {
+              show: false,
+              tickAmount: 4,
+              labels: {
+                show: false,
+              },
+            },
+          }
+        },
+      )
+    },
+  },
+}
+</script>

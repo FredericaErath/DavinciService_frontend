@@ -53,6 +53,8 @@ export const get_surgery_dashobard = (data) =>
   requests({ url: 'http://' + api + '/admin/get_surgery_dashboard', method: 'post', data})
 export const get_doctor_contribution = (data) =>
   requests({ url: 'http://' + api + '/admin/get_doctor_contribution', method: 'post', data})
+export const get_general_data = (data) =>
+  requests({ url: 'http://' + api + '/admin/get_general_data', method: 'post', data})
 //message
 export const get_message = (data) =>
   requests({ url: 'http://' + api + '/admin/get_message', method: 'post', data})
@@ -60,3 +62,4 @@ export const delete_message = (data) =>
   requests({ url: 'http://' + api + '/admin/delete_message', method: 'post', data})
 export const update_message = (data) =>
   requests({ url: 'http://' + api + '/admin/update_message', method: 'post', data})
+  
