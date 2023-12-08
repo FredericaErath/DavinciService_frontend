@@ -176,7 +176,7 @@
       <el-input
         v-model="form_id"
         placeholder="Input"
-        style="width: 260px"
+        style="width: 160px"
       ></el-input>
     </el-form-item>
     <el-form-item

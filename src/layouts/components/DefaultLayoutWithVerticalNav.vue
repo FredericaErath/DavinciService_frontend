@@ -37,29 +37,17 @@ const upgradeBanner = computed(() => {
           style="user-select: none"
         >
           <!-- 👉 Search Trigger button -->
-          <IconBtn>
-            <VIcon icon="mdi-magnify" />
-          </IconBtn>
-
-          <span class="d-none d-md-flex align-center text-disabled">
-            <span class="me-3">Search</span>
-            <span class="meta-key">&#8984;K</span>
-          </span>
         </div>
 
         <VSpacer />
 
         <IconBtn
           class="me-2"
-          href="https://github.com/themeselection/materio-vuetify-vuejs-admin-template-free"
+          href="https://github.com/FredericaErath/DavinciService"
           target="_blank"
           rel="noopener noreferrer"
         >
           <VIcon icon="mdi-github" />
-        </IconBtn>
-
-        <IconBtn class="me-2">
-          <VIcon icon="mdi-bell-outline" />
         </IconBtn>
 
         <NavbarThemeSwitcher class="me-2" />
@@ -71,37 +59,9 @@ const upgradeBanner = computed(() => {
     <template #vertical-nav-content>
       <VerticalNavLink
         :item="{
-          title: 'Dashboard',
+          title: 'Home',
           icon: 'mdi-home-outline',
           to: '/dashboard',
-        }"
-      />
-      <VerticalNavLink
-        :item="{
-          title: 'Account Settings',
-          icon: 'mdi-account-cog-outline',
-          to: '/account-settings',
-        }"
-      />
-
-      <!-- 👉 Pages -->
-      <VerticalNavSectionTitle
-        :item="{
-          heading: 'Pages',
-        }"
-      />
-      <VerticalNavLink
-        :item="{
-          title: 'Login',
-          icon: 'mdi-login',
-          to: '/login',
-        }"
-      />
-      <VerticalNavLink
-        :item="{
-          title: 'Register',
-          icon: 'mdi-account-plus-outline',
-          to: '/register',
         }"
       />
 

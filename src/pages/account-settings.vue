@@ -1,8 +1,7 @@
 <script setup>
-import { useRoute } from 'vue-router'
 import AccountSettingsAccount from '@/views/pages/account-settings/AccountSettingsAccount.vue'
-import AccountSettingsNotification from '@/views/pages/account-settings/AccountSettingsNotification.vue'
 import AccountSettingsSecurity from '@/views/pages/account-settings/AccountSettingsSecurity.vue'
+import { useRoute } from 'vue-router'
 
 const route = useRoute()
 const activeTab = ref(route.params.tab)
@@ -18,11 +17,6 @@ const tabs = [
     title: 'Security',
     icon: 'mdi-lock-open-outline',
     tab: 'security',
-  },
-  {
-    title: 'Notifications',
-    icon: 'mdi-bell-outline',
-    tab: 'notification',
   },
 ]
 </script>
@@ -60,11 +54,6 @@ const tabs = [
       <!-- Security -->
       <VWindowItem value="security">
         <AccountSettingsSecurity />
-      </VWindowItem>
-
-      <!-- Notification -->
-      <VWindowItem value="notification">
-        <AccountSettingsNotification />
       </VWindowItem>
     </VWindow>
   </div>

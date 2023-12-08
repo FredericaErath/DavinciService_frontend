@@ -21,7 +21,7 @@
         collapse-tags-tooltip
         :max-collapse-tags="2"
         placeholder="Select"
-        style="width: 260px"
+        style="width: 160px"
       >
         <el-option
           v-for="item in options"

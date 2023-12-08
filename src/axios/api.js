@@ -1,10 +1,10 @@
 import requests from './request'
 import requests_form from './request_form'
-const api = '192.168.1.179:9001'
+const api = '192.168.1.4:9001'
 
 //user
 export const login_api = (data) =>
-  requests({ url: 'http://' + api + '/login/', method: 'post', data })
+  requests({ url: 'http://' + api + '/login', method: 'post', data })
 export const get_all_users_api = (data) =>
   requests({ url: 'http://' + api + '/admin/get_all_user', method: 'get', data })
 export const get_users_api = (data) =>

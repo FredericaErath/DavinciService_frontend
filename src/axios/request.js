@@ -1,5 +1,6 @@
+import router from '@/router';
+import store from '@/store/store';
 import axios from 'axios';
-
 // import nprogress from "nprogress";
 // // start：进度条开始  done：进度条结束
 // // 引入样式
@@ -16,23 +17,34 @@ const requests = axios.create({
 })
 
 // 请求拦截器：再发请求之前，拦截器可以检测到，在请求发出去之前做一些事情
-requests.interceptors.request.use((config) => {
-  // nprogress.start();
-  // config：配置对象，对象里面有一个属性很重要，headers请求头
-  config.headers.pagination = "";
-  return config
-})
+requests.interceptors.request.use(
+  config =>{
+    config.headers.Token = store.getters.getToken;
+    return config;
+  },
+  error =>{
+    //对请求错误做什么
+    return Promise.reject(error);
+  })
 
 // 响应拦截器：再发请求之前，拦截器可以检测到，在请求发出去之前做一些事情
 requests.interceptors.response.use(
-  (res) => {
-    // nprogress.done();
-    return res
+  response =>{
+    return response;
   },
-  (err) => {
-    return Promise.reject(new Error(err))
-  }
-)
+  error=>{
+    if(error.response){
+      switch(error.response.status){
+        case 401:
+          store.commit("delToken");
+          router.replace({
+            path: '/login',
+            query: {redirect: router.currentRoute.fullPath}//登录成功后跳入浏览的当前页面
+          })
+      }
+    }
+    return Promise.reject(error.response.data);
+  })
 
 // 对外暴露
 export default requests

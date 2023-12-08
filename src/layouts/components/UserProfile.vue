@@ -1,7 +1,3 @@
-<script setup>
-import avatar1 from '@images/avatars/avatar-1.png'
-</script>
-
 <template>
   <VBadge
     dot
@@ -47,13 +43,13 @@ import avatar1 from '@images/avatars/avatar-1.png'
               </VListItemAction>
             </template>
 
-            <VListItemTitle class="font-weight-semibold"> John Doe </VListItemTitle>
+            <VListItemTitle class="font-weight-semibold"> {{ userName }} </VListItemTitle>
             <VListItemSubtitle>Admin</VListItemSubtitle>
           </VListItem>
           <VDivider class="my-2" />
 
           <!-- 👉 Profile -->
-          <VListItem link>
+          <VListItem to="/account-settings">
             <template #prepend>
               <VIcon
                 class="me-2"
@@ -65,37 +61,11 @@ import avatar1 from '@images/avatars/avatar-1.png'
             <VListItemTitle>Profile</VListItemTitle>
           </VListItem>
 
-          <!-- 👉 Settings -->
-          <VListItem link>
-            <template #prepend>
-              <VIcon
-                class="me-2"
-                icon="mdi-cog-outline"
-                size="22"
-              />
-            </template>
-
-            <VListItemTitle>Settings</VListItemTitle>
-          </VListItem>
-
-          <!-- 👉 FAQ -->
-          <VListItem link>
-            <template #prepend>
-              <VIcon
-                class="me-2"
-                icon="mdi-help-circle-outline"
-                size="22"
-              />
-            </template>
-
-            <VListItemTitle>FAQ</VListItemTitle>
-          </VListItem>
-
-          <!-- Divider -->
-          <VDivider class="my-2" />
-
           <!-- 👉 Logout -->
-          <VListItem to="/login">
+          <VListItem
+            to="/login"
+            @click="logOut"
+          >
             <template #prepend>
               <VIcon
                 class="me-2"
@@ -112,3 +82,20 @@ import avatar1 from '@images/avatars/avatar-1.png'
     </VAvatar>
   </VBadge>
 </template>
+<script setup>
+import storage from '@/store/storage'
+import store from '@/store/store'
+import avatar1 from '@images/avatars/avatar-1.png'
+const logOut = () => {
+  if (storage.get('token')) {
+    store.commit('delToken')
+  }
+}
+const userName = ref('')
+const getUserName = () => {
+  if (storage.get('token')) {
+    userName.value = storage.get('userName')
+  }
+}
+getUserName()
+</script>

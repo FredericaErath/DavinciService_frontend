@@ -1,26 +1,3 @@
-<script setup>
-import logo from '@images/logo.svg?raw'
-import authV1MaskDark from '@images/pages/auth-v1-mask-dark.png'
-import authV1MaskLight from '@images/pages/auth-v1-mask-light.png'
-import authV1Tree2 from '@images/pages/auth-v1-tree-2.png'
-import authV1Tree from '@images/pages/auth-v1-tree.png'
-import { useTheme } from 'vuetify'
-
-const form = ref({
-  email: '',
-  password: '',
-  remember: false,
-})
-
-const vuetifyTheme = useTheme()
-
-const authThemeMask = computed(() => {
-  return vuetifyTheme.global.name.value === 'light' ? authV1MaskLight : authV1MaskDark
-})
-
-const isPasswordVisible = ref(false)
-</script>
-
 <template>
   <div class="auth-wrapper d-flex align-center justify-center pa-4">
     <VCard
@@ -82,24 +59,15 @@ const isPasswordVisible = ref(false)
               <VBtn
                 block
                 type="submit"
-                to="/"
+                @click="onSubmit"
               >
                 登录
               </VBtn>
-            </VCol>
-
-            <!-- create account -->
-            <VCol
-              cols="12"
-              class="text-center text-base"
-            >
-              <span>第一次访问后台?</span>
-              <RouterLink
-                class="text-primary ms-2"
-                to="/register"
-              >
-                创建管理员账户
-              </RouterLink>
+              <Vcode
+                :show="isShow"
+                @success="onSuccess"
+                @close="onClose"
+              />
             </VCol>
           </VRow>
         </VForm>
@@ -125,6 +93,72 @@ const isPasswordVisible = ref(false)
     />
   </div>
 </template>
+
+<script>
+import { login_api } from '@/axios/api'
+import logo from '@images/logo.svg?raw'
+import authV1MaskDark from '@images/pages/auth-v1-mask-dark.png'
+import authV1MaskLight from '@images/pages/auth-v1-mask-light.png'
+import authV1Tree2 from '@images/pages/auth-v1-tree-2.png'
+import authV1Tree from '@images/pages/auth-v1-tree.png'
+import { ElNotification } from 'element-plus'
+import Vcode from 'vue3-puzzle-vcode'
+import { useTheme } from 'vuetify'
+export default {
+  components: { Vcode },
+  data: () => ({
+    isShow: false,
+    authThemeMask: '',
+    isPasswordVisible: false,
+    form: { email: '', password: '', remember: false },
+  }),
+  created() {
+    this.getMask()
+    ElNotification({
+      title: 'Login',
+      message: '检测到您未登录，请先登录！',
+      type: 'info',
+    })
+  },
+  methods: {
+    onClose() {
+      this.isShow = false
+    },
+    onSuccess() {
+      this.onClose()
+      ElNotification({
+        title: 'Success',
+        message: '登录成功！',
+        type: 'success',
+      })
+      this.$router.push('/dashboard')
+    },
+    onSubmit() {
+      login_api({ u_id: this.form.email, pwd: this.form.password, user_type: '管理员' })
+        .then(res => {
+          this.$store.commit('setToken', res.data.token)
+          this.$store.commit('setUserName', res.data.name)
+          this.$store.commit('setUserId', res.data.u_id)
+          this.isShow = true
+        })
+        .catch(err => {
+          ElNotification({
+            title: 'Error',
+            message: '登录失败，用户名或密码错误',
+            type: 'Error',
+          })
+        })
+    },
+    getMask() {
+      var vuetifyTheme = useTheme()
+      this.authThemeMask = computed(() => {
+        return vuetifyTheme.global.name.value === 'light' ? authV1MaskLight : authV1MaskDark
+      })
+    },
+  },
+}
+</script>
+
 
 <style lang="scss">
 @use '@core/scss/pages/page-auth.scss';
